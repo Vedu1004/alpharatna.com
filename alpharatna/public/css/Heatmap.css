@@ -1,0 +1,51 @@
+.heatmap-container {
+    display: flex;
+    margin-top: 7vh;
+  }
+  
+  .sidebar {
+    width: 200px;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  .heatmap {
+    flex-grow: 1;
+  }
+  
+  select, input {
+    width: 100%;
+    margin-top: 20px;
+    padding: 5px;
+  }
+
+
+
+
+
+
+
+
+
+  .heatmap-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  #heatmap {
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  rect {
+    stroke: #fff;
+  }
+  
+  text {
+    pointer-events: none;
+  }
