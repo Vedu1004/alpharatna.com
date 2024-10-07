@@ -20,7 +20,7 @@ const StockList = {
   },
 
   initWebSocket: function () {
-    this.socket = new WebSocket("ws://localhost:8080/ws");
+    this.socket = new WebSocket("ws://alpharatna.com:8080/ws");
 
     this.socket.onopen = () => {
       console.log("WebSocket connection established");
@@ -47,6 +47,8 @@ const StockList = {
             }
           }
         });
+        this.jsonArray = this.jsonArray[0].scrip_datas;
+        console.log(this.jsonArray);
         this.totalStocks = this.jsonArray.length;
         m.redraw();
       } catch (error) {

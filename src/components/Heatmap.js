@@ -11,6 +11,7 @@ const Heatmap = {
     this.jsonArray = [];
     this.currentHeatmapType = "marketCap";
     this.categories = ["marketCap", "turnover", "range", "rangeTodayVsAvg"];
+    this.chart = null;
   },
 
   oncreate: function (vnode) {
@@ -61,6 +62,9 @@ const Heatmap = {
   onremove: function (vnode) {
     if (this.socket) {
       this.socket.close();
+    }
+    if (this.chart) {
+      this.chart.destroy();
     }
   },
 
@@ -129,87 +133,94 @@ const Heatmap = {
       min: -4,
       max: 4,
     };
+    if (!this.chart) {
+      this.chart = Highcharts.chart("container", {
+        chart: {
+          height: 600,
+        },
+        colorAxis: colorAxisConfig,
+        series: [
+          {
+            type: "treemap",
+            layoutAlgorithm: "squarified",
+            data: data,
+            dataLabels: {
+              enabled: true,
+              useHTML: true,
+              formatter: function () {
+                const point = this.point;
+                const shapeArgs = point.shapeArgs || {};
+                const width = shapeArgs.width || 0;
+                const height = shapeArgs.height || 0;
+                const minDimension = Math.min(width, height);
+                const fontSize = Math.max(6, Math.min(14, minDimension / 8));
+                const [symbol, price, change] = point.name.split("|");
 
-    Highcharts.chart("container", {
-      chart: {
-        height: 600,
-      },
-      colorAxis: colorAxisConfig,
-      series: [
-        {
-          type: "treemap",
-          layoutAlgorithm: "squarified",
-          data: data,
-          dataLabels: {
-            enabled: true,
-            useHTML: true,
-            formatter: function () {
-              const point = this.point;
-              const shapeArgs = point.shapeArgs || {};
-              const width = shapeArgs.width || 0;
-              const height = shapeArgs.height || 0;
-              const minDimension = Math.min(width, height);
-              const fontSize = Math.max(6, Math.min(14, minDimension / 8));
-              const [symbol, price, change] = point.name.split("|");
+                let content = "";
+                if (minDimension >= 30) {
+                  content = `
+                    <div style="font-weight:bold;font-size:${
+                      fontSize * 1.5
+                    }px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center;">${symbol}</div>
+                    <div style="font-size:${
+                      fontSize * 0.9
+                    }px;text-align:center;">${change}</div>
+                  `;
+                }
 
-              let content = "";
-              if (minDimension >= 30) {
-                content = `
-                  <div style="font-weight:bold;font-size:${
-                    fontSize * 1.5
-                  }px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center;">${symbol}</div>
-                  <div style="font-size:${
-                    fontSize * 0.9
-                  }px;text-align:center;">${change}</div>
-                `;
-              }
-
-              return `<div style="width:${width}px;height:${height}px;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;padding:2px;box-sizing:border-box;">
-                  ${content}
-              </div>`;
+                return `<div style="width:${width}px;height:${height}px;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden;padding:2px;box-sizing:border-box;">
+                    ${content}
+                </div>`;
+              },
+              style: {
+                color: "#ffffff",
+                textOutline: "none",
+              },
+              padding: 0,
+              allowOverlap: true,
             },
-            style: {
-              color: "#ffffff",
-              textOutline: "none",
-            },
-            padding: 0,
-            allowOverlap: true,
+          },
+        ],
+        title: {
+          text: `180 Stocks - ${type.charAt(0).toUpperCase() + type.slice(1)}`,
+        },
+        tooltip: {
+          useHTML: true,
+          formatter: function () {
+            const [symbol, price, change] = this.point.name.split("|");
+            const value = this.point.value;
+            let tooltipContent = `<b>${symbol}</b><br/>Price: ${price}<br/>Change: ${change}<br/>`;
+
+            switch (type) {
+              case "turnover":
+                tooltipContent += `Turnover: ${value.toFixed(2)}`;
+                break;
+              case "marketCap":
+                tooltipContent += `Market Cap: ${value.toFixed(2)}`;
+                break;
+              case "range":
+                tooltipContent += `Range: ${value.toFixed(2)}%`;
+                break;
+              case "rangeTodayVsAvg":
+                tooltipContent += `Range Today vs 10-day Avg: ${value.toFixed(
+                  2
+                )}`;
+                break;
+              default:
+                tooltipContent += `Value: ${value.toFixed(2)}`;
+            }
+
+            return tooltipContent;
           },
         },
-      ],
-      title: {
+      });
+    } else {
+      // Update existing chart
+      this.chart.series[0].setData(data, true);
+      this.chart.setTitle({
         text: `180 Stocks - ${type.charAt(0).toUpperCase() + type.slice(1)}`,
-      },
-      tooltip: {
-        useHTML: true,
-        formatter: function () {
-          const [symbol, price, change] = this.point.name.split("|");
-          const value = this.point.value;
-          let tooltipContent = `<b>${symbol}</b><br/>Price: ${price}<br/>Change: ${change}<br/>`;
-
-          switch (type) {
-            case "turnover":
-              tooltipContent += `Turnover: ${value.toFixed(2)}`;
-              break;
-            case "marketCap":
-              tooltipContent += `Market Cap: ${value.toFixed(2)}`;
-              break;
-            case "range":
-              tooltipContent += `Range: ${value.toFixed(2)}%`;
-              break;
-            case "rangeTodayVsAvg":
-              tooltipContent += `Range Today vs 10-day Avg: ${value.toFixed(
-                2
-              )}`;
-              break;
-            default:
-              tooltipContent += `Value: ${value.toFixed(2)}`;
-          }
-
-          return tooltipContent;
-        },
-      },
-    });
+      });
+    }
   },
 
   view: function (vnode) {
@@ -255,7 +266,7 @@ const Heatmap = {
   changeHeatmapType: function (type) {
     this.currentHeatmapType = type;
     let formattedData = this.formatDataForHeatmap(
-      this.jsonArray,
+      this.jsonArray[0].scrip_datas,
       this.currentHeatmapType
     );
     this.updateChart(formattedData, this.currentHeatmapType);

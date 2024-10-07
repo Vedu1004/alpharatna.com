@@ -28,7 +28,7 @@ m.route(document.body, "/", {
   },
   "/heatmap": {
     render: function () {
-      return m(Layout, m(HeatmapHighcharts));
+      return m(Layout, m(Heatmap));
     },
   },
   "/feed": {
