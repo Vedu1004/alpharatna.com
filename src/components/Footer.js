@@ -1,5 +1,5 @@
 import m from "mithril";
-
+import "../../public/css/footer.css";
 const Footer = {
   view: function () {
     return m("footer", [
