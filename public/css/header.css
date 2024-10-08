@@ -67,10 +67,9 @@ nav a {
   display: none;
   background: none;
   border: none;
-  color: #f9f7f7;
-  font-size: 24px;
+  color: #ffffff;
+  font-size: 28px;
   cursor: pointer;
-  margin-right: 1vw;
 }
 
 @media (max-width: 768px) {
@@ -79,7 +78,6 @@ nav a {
   }
 
   .logo {
-    margin-left: 0;
     font-size: 1.5rem;
 
   }
@@ -104,10 +102,6 @@ nav a {
 
   nav a {
     margin: 10px 0;
-  }
-
-  .search {
-    margin-left: 10px;
   }
 
   .search input[type="text"] {
