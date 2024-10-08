@@ -1,5 +1,5 @@
 import m from "mithril";
-import "../../public/css/home.css"; // We'll create this CSS file separately
+import "../../public/css/home.css";
 
 const HomePage = {
   view: function () {
@@ -46,6 +46,45 @@ const HomePage = {
               "p.feature-description",
               "Gain insights with our powerful analytical tools and indicators"
             ),
+          ]),
+        ]),
+      ]),
+      m("section.market-summary", [
+        m("h3", "Market Summary"),
+        m("div.market-indices", [
+          m("div.index", [
+            m("span.index-name", "S&P 500"),
+            m("span.index-value", "4,185.47"),
+            m("span.index-change.positive", "+0.45%"),
+          ]),
+          m("div.index", [
+            m("span.index-name", "Dow Jones"),
+            m("span.index-value", "33,875.40"),
+            m("span.index-change.negative", "-0.22%"),
+          ]),
+          m("div.index", [
+            m("span.index-name", "NASDAQ"),
+            m("span.index-value", "12,153.41"),
+            m("span.index-change.positive", "+0.75%"),
+          ]),
+        ]),
+      ]),
+      m("section.testimonials", [
+        m("h3", "What Our Users Say"),
+        m("div.testimonial-container", [
+          m("div.testimonial", [
+            m(
+              "p",
+              "Ratna has revolutionized how you analyze market trends. The heatmaps are incredibly insightful!"
+            ),
+            m("cite", "- Yash R., Professional Trader"),
+          ]),
+          m("div.testimonial", [
+            m(
+              "p",
+              "As a beginner investor, the learning resources and intuitive interface have been invaluable."
+            ),
+            m("cite", "- Vedu J., Novice Investor"),
           ]),
         ]),
       ]),

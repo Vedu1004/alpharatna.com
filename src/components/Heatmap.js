@@ -225,38 +225,28 @@ const Heatmap = {
 
   view: function (vnode) {
     return m("div.heatmap-container", { display: "flex", marginTop: "7vh" }, [
-      m(
-        "div.sidebar",
-        { style: "width: 200px; padding: 20px; background-color: #f0f0f0;" },
-        [
-          m("h3", "MAP FILTER"),
-          m("ul", [
-            m("li", "S&P 500"),
-            m("li", "World"),
-            m("li", "Full"),
-            m("li", "Exchange Traded Funds"),
-          ]),
-          m(
-            "select",
-            {
-              onchange: (e) => this.changeHeatmapType(e.target.value),
-              style: "width: 100%; margin-top: 20px;",
-            },
-            this.categories.map((category) =>
-              m(
-                "option",
-                { value: category },
-                category.charAt(0).toUpperCase() + category.slice(1)
-              )
+      m("div.sidebars", [
+        m("h2", "MAP FILTER"),
+        m("ul", [
+          m("li", "S&P 500"),
+          m("li", "Standard 180"),
+          m("li", "Nifty 50"),
+          m("li", "Exchange Traded Funds"),
+        ]),
+        m(
+          "select",
+          {
+            onchange: (e) => this.changeHeatmapType(e.target.value),
+          },
+          this.categories.map((category) =>
+            m(
+              "option",
+              { value: category },
+              category.charAt(0).toUpperCase() + category.slice(1)
             )
-          ),
-          m("input", {
-            type: "text",
-            placeholder: "Quick search ticker",
-            style: "width: 100%; margin-top: 20px;",
-          }),
-        ]
-      ),
+          )
+        ),
+      ]),
       m("div.heatmap", { style: "flex-grow: 1;" }, [
         m("div", { id: "container", style: "height: 600px;" }),
       ]),

@@ -96,7 +96,7 @@ const StockList = {
   view: function (vnode) {
     return m("div.stock-list-container", [
       m("div.sidebar", [
-        m("h1", "Stocks"),
+        m("h2", "Stocks"),
         m("ul", [
           m("li", "All Stocks"),
           m("li", "Market Data"),
@@ -110,100 +110,105 @@ const StockList = {
           "p",
           "With over 5,000 stocks listed on stock exchanges, tracking each one can be overwhelming. That's why we've created a comprehensive list of stocks to help you easily monitor their performance all in one place. Here is the complete list of stocks listed on the stock market:"
         ),
-        m("table.styled-table", [
-          m("thead", [
-            m("tr", [
-              m(
-                "th",
-                "Company",
-                m(
-                  "span.sort-icon",
-                  this.sortColumn === "ts"
-                    ? this.sortDirection === 1
-                      ? "▲"
-                      : "▼"
-                    : ""
-                )
-              ),
-              m(
-                "th",
-                { onclick: () => this.sortBy("lp") },
-                "LTP (₹)",
-                m(
-                  "span.sort-icon",
-                  this.sortColumn === "lp"
-                    ? this.sortDirection === 1
-                      ? "▲"
-                      : "▼"
-                    : ""
-                )
-              ),
-              m(
-                "th",
-                { onclick: () => this.sortBy("pc") },
-                "1D Return %",
-                m(
-                  "span.sort-icon",
-                  this.sortColumn === "pc"
-                    ? this.sortDirection === 1
-                      ? "▲"
-                      : "▼"
-                    : ""
-                )
-              ),
-              m(
-                "th",
-                { onclick: () => this.sortBy("os") },
-                "Market Cap ",
-                m(
-                  "span.sort-icon",
-                  this.sortColumn === "os"
-                    ? this.sortDirection === 1
-                      ? "▲"
-                      : "▼"
-                    : ""
-                )
-              ),
-              m("th", "High / Low (₹)"),
-              m(
-                "th",
-                { onclick: () => this.sortBy("v") },
-                "Volume",
-                m(
-                  "span.sort-icon",
-                  this.sortColumn === "v"
-                    ? this.sortDirection === 1
-                      ? "▲"
-                      : "▼"
-                    : ""
-                )
-              ),
-            ]),
-          ]),
-          m(
-            "tbody",
-            this.jsonArray.slice(0, this.visibleStocks).map((stock) =>
+        m("div.table-container", [
+          m("table.styled-table", [
+            m("thead", [
               m("tr", [
-                m("td", stock.ts.split("-")[0]),
-                m("td", this.formatNumber(parseFloat(stock.lp).toFixed(2))),
                 m(
-                  "td",
-                  {
-                    class: parseFloat(stock.pc) >= 0 ? "positive" : "negative",
-                  },
-                  `${parseFloat(stock.pc).toFixed(2)}%`
-                ),
-                m(
-                  "td",
-                  this.formatNumber(
-                    Math.round(parseFloat(stock.lp) * parseFloat(stock.os))
+                  "th",
+                  "Company",
+                  m(
+                    "span.sort-icon",
+                    this.sortColumn === "ts"
+                      ? this.sortDirection === 1
+                        ? "▲"
+                        : "▼"
+                      : ""
                   )
                 ),
-                m("td", `${stock.h}/${stock.l}`),
-                m("td", this.formatNumber(stock.v)),
-              ])
-            )
-          ),
+                m(
+                  "th",
+                  { onclick: () => this.sortBy("lp") },
+                  "LTP (₹)",
+                  m(
+                    "span.sort-icon",
+                    this.sortColumn === "lp"
+                      ? this.sortDirection === 1
+                        ? "▲"
+                        : "▼"
+                      : ""
+                  )
+                ),
+                m(
+                  "th",
+                  { onclick: () => this.sortBy("pc") },
+                  "1D Return %",
+                  m(
+                    "span.sort-icon",
+                    this.sortColumn === "pc"
+                      ? this.sortDirection === 1
+                        ? "▲"
+                        : "▼"
+                      : ""
+                  )
+                ),
+                m(
+                  "th",
+                  { onclick: () => this.sortBy("os") },
+                  "Market Cap ",
+                  m(
+                    "span.sort-icon",
+                    this.sortColumn === "os"
+                      ? this.sortDirection === 1
+                        ? "▲"
+                        : "▼"
+                      : ""
+                  )
+                ),
+                m("th", "High / Low (₹)"),
+                m(
+                  "th",
+                  { onclick: () => this.sortBy("v") },
+                  "Volume",
+                  m(
+                    "span.sort-icon",
+                    this.sortColumn === "v"
+                      ? this.sortDirection === 1
+                        ? "▲"
+                        : "▼"
+                      : ""
+                  )
+                ),
+              ]),
+            ]),
+            m(
+              "tbody",
+              this.jsonArray
+                .slice(0, this.visibleStocks)
+                .map((stock) =>
+                  m("tr", [
+                    m("td", stock.ts.split("-")[0]),
+                    m("td", this.formatNumber(parseFloat(stock.lp).toFixed(2))),
+                    m(
+                      "td",
+                      {
+                        class:
+                          parseFloat(stock.pc) >= 0 ? "positive" : "negative",
+                      },
+                      `${parseFloat(stock.pc).toFixed(2)}%`
+                    ),
+                    m(
+                      "td",
+                      this.formatNumber(
+                        Math.round(parseFloat(stock.lp) * parseFloat(stock.os))
+                      )
+                    ),
+                    m("td", `${stock.h}/${stock.l}`),
+                    m("td", this.formatNumber(stock.v)),
+                  ])
+                )
+            ),
+          ]),
         ]),
         m("div.btm", [
           this.visibleStocks < this.totalStocks &&

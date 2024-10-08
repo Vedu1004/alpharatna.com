@@ -1,51 +1,76 @@
+/* Base styles */
 .heatmap-container {
-    display: flex;
-    margin-top: 7vh;
-  }
-  
-  .sidebar {
-    width: 200px;
-    padding: 20px;
-    background-color: #f0f0f0;
-  }
-  
-  .heatmap {
-    flex-grow: 1;
-  }
-  
-  select, input {
-    width: 100%;
-    margin-top: 20px;
-    padding: 5px;
-  }
+  display: flex;
+  margin-top: 10vh;
+  font-family: 'Comic Sans MS';
+}
 
+.sidebars {
+  padding: 20px;
+  background-color: #ffffff;
+}
 
+.heatmap {
+  flex-grow: 1;
+}
 
+select {
+  width: 100%;
+  padding: 5px;
+}
 
+h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
 
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
 
+li {
+  font-family: 'Comic Sans MS';
+  margin-bottom: 10px;
+}
 
+#container {
+  height: 600px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
+rect {
+  stroke: #ffffff;
+}
 
+text {
+  pointer-events: none;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
   .heatmap-container {
-    font-family: Arial, sans-serif;
-    padding: 20px;
+    flex-direction: column;
+    margin-top: 0;
   }
-  
-  h2 {
-    color: #333;
-    margin-bottom: 20px;
+
+  .sidebars {
+    order: -1; /* This moves the sidebar to the top */
+    padding: 10px;
+    margin-top: 4vh;
   }
-  
-  #heatmap {
-    border: 1px solid #ddd;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+  .heatmap {
+    width: 100%;
   }
-  
-  rect {
-    stroke: #fff;
+
+  #container {
+    height: 400px; /* Reduce height for mobile */
   }
-  
-  text {
-    pointer-events: none;
+
+  select {
+    width: 60%;
   }
+}
