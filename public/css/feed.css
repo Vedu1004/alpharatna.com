@@ -1,7 +1,6 @@
 /* Base styles */
 .stock-list-container {
   display: flex;
-  font-family: 'Comic Sans MS', cursive;
   color: #333;
   background-color: #ffffff;
   margin-top: 7vh;
@@ -16,14 +15,12 @@
 }
 
 .sidebar h2 {
-  font-family: 'Comic Sans MS', cursive;
   margin-top: 0;
   font-size: 18px;
   font-weight: bold;
 }
 
 .sidebar ul {
-  font-family: 'Comic Sans MS', cursive;
   list-style-type: none;
   font-size: 18px;
   padding: 0;
@@ -47,7 +44,6 @@
 
 .stock-table p {
   width: 90%;
-  font-family: 'Comic Sans MS', cursive;
   font-size: 16px;
   margin-bottom: 20px;
 }
@@ -62,7 +58,6 @@
 
 .styled-table th,
 .styled-table td {
-  font-family: 'Comic Sans MS', cursive;
   border: none;
   padding: 12px 15px;
   text-align: left;

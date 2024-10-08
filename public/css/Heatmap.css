@@ -2,7 +2,6 @@
 .heatmap-container {
   display: flex;
   margin-top: 10vh;
-  font-family: 'Comic Sans MS';
 }
 
 .sidebars {
@@ -31,7 +30,6 @@ ul {
 }
 
 li {
-  font-family: 'Comic Sans MS';
   margin-bottom: 10px;
 }
 

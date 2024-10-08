@@ -183,30 +183,28 @@ const StockList = {
             ]),
             m(
               "tbody",
-              this.jsonArray
-                .slice(0, this.visibleStocks)
-                .map((stock) =>
-                  m("tr", [
-                    m("td", stock.ts.split("-")[0]),
-                    m("td", this.formatNumber(parseFloat(stock.lp).toFixed(2))),
-                    m(
-                      "td",
-                      {
-                        class:
-                          parseFloat(stock.pc) >= 0 ? "positive" : "negative",
-                      },
-                      `${parseFloat(stock.pc).toFixed(2)}%`
-                    ),
-                    m(
-                      "td",
-                      this.formatNumber(
-                        Math.round(parseFloat(stock.lp) * parseFloat(stock.os))
-                      )
-                    ),
-                    m("td", `${stock.h}/${stock.l}`),
-                    m("td", this.formatNumber(stock.v)),
-                  ])
-                )
+              this.jsonArray.slice(0, this.visibleStocks).map((stock) =>
+                m("tr", [
+                  m("td", stock.ts.split("-")[0]),
+                  m("td", this.formatNumber(parseFloat(stock.lp).toFixed(2))),
+                  m(
+                    "td",
+                    {
+                      class:
+                        parseFloat(stock.pc) >= 0 ? "positive" : "negative",
+                    },
+                    `${parseFloat(stock.pc).toFixed(2)}%`
+                  ),
+                  m(
+                    "td",
+                    this.formatNumber(
+                      Math.round(parseFloat(stock.lp) * parseFloat(stock.os))
+                    )
+                  ),
+                  m("td", `${stock.h}/${stock.l}`),
+                  m("td", this.formatNumber(stock.v)),
+                ])
+              )
             ),
           ]),
         ]),

@@ -9,7 +9,6 @@
 }
 
 body {
-  font-family: 'Comic Sans MS', cursive;
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background-color);

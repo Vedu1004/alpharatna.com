@@ -5,7 +5,7 @@ const HomePage = {
   view: function () {
     return m("div.home-page", [
       m("main.main-content", [
-        m("h2.headline", "Visualize the Market at a Glance"),
+        m("h2.headline.comic-neue-bold", "Visualize the Market at a Glance"),
         m(
           "p.subheadline",
           "Powerful stock heatmaps and analysis tools for informed decision-making"
