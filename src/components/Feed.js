@@ -128,7 +128,10 @@ const StockList = {
                 ),
                 m(
                   "th",
-                  { onclick: () => this.sortBy("lp") },
+                  {
+                    onclick: () => this.sortBy("lp"),
+                    title: "Last traded price",
+                  },
                   "LTP (₹)",
                   m(
                     "span.sort-icon",
@@ -141,7 +144,7 @@ const StockList = {
                 ),
                 m(
                   "th",
-                  { onclick: () => this.sortBy("pc") },
+                  { onclick: () => this.sortBy("pc"), title: "percent change" },
                   "1D Return %",
                   m(
                     "span.sort-icon",
@@ -154,7 +157,10 @@ const StockList = {
                 ),
                 m(
                   "th",
-                  { onclick: () => this.sortBy("os") },
+                  {
+                    onclick: () => this.sortBy("os"),
+                    title: "Stock market capitalization",
+                  },
                   "Market Cap ",
                   m(
                     "span.sort-icon",
@@ -165,10 +171,14 @@ const StockList = {
                       : ""
                   )
                 ),
-                m("th", "High / Low (₹)"),
                 m(
                   "th",
-                  { onclick: () => this.sortBy("v") },
+                  { title: "1 day higest/lowest price" },
+                  "High / Low (₹)"
+                ),
+                m(
+                  "th",
+                  { onclick: () => this.sortBy("v"), title: "Volume traded" },
                   "Volume",
                   m(
                     "span.sort-icon",

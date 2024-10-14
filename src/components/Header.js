@@ -24,27 +24,47 @@ const Header = {
       m("nav", { class: vnode.state.isMenuOpen ? "open" : "" }, [
         m(
           m.route.Link,
-          { href: "/", onclick: () => this.closeMenu(vnode) },
+          {
+            href: "/",
+            onclick: () => this.closeMenu(vnode),
+            title: "Go to the home page",
+          },
           "HOME"
         ),
         m(
           m.route.Link,
-          { href: "/heatmap", onclick: () => this.closeMenu(vnode) },
+          {
+            href: "/heatmap",
+            onclick: () => this.closeMenu(vnode),
+            title: "Generate heatmap",
+          },
           "HEATMAP"
         ),
         m(
           m.route.Link,
-          { href: "/feed", onclick: () => this.closeMenu(vnode) },
+          {
+            href: "/feed",
+            onclick: () => this.closeMenu(vnode),
+            title: "Get Stock list",
+          },
           "FEED"
         ),
         m(
           m.route.Link,
-          { href: "/", onclick: () => this.closeMenu(vnode) },
-          "NEWS"
+          {
+            href: "/bubble",
+            onclick: () => this.closeMenu(vnode),
+            title: "Generate bubblemap",
+          },
+          "BUBBLEMAP"
         ),
         m(
           m.route.Link,
-          { href: "/", onclick: () => this.closeMenu(vnode) },
+          {
+            href: "/",
+            onclick: () => this.closeMenu(vnode),
+            title: "Contact US",
+          },
           "MORE"
         ),
       ]),
