@@ -43,20 +43,20 @@ const Header = {
         m(
           m.route.Link,
           {
-            href: "/feed",
+            href: "/stocks",
             onclick: () => this.closeMenu(vnode),
             title: "Get Stock list",
           },
-          "FEED"
+          "SCREENER"
         ),
         m(
           m.route.Link,
           {
-            href: "/bubble",
+            href: "/drawdown",
             onclick: () => this.closeMenu(vnode),
             title: "Generate bubblemap",
           },
-          "BUBBLEMAP"
+          "DRAWDOWN"
         ),
         m(
           m.route.Link,

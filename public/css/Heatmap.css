@@ -1,12 +1,37 @@
 /* Base styles */
 .heatmap-container {
   display: flex;
-  margin-top: 10vh;
+  margin-top: 15vh;
 }
 
-.sidebars {
-  padding: 20px;
+.dashboard-container {
   background-color: #ffffff;
+}
+
+.sidebar {
+  border-right: 1px solid #2a2a2a;
+}
+
+.nav-item {
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+  background-color: #333333;
+}
+
+.dropdown-item {
+  margin-left: 2vw;
+  transition: color 0.2s;
+}
+
+.dropdown-item:hover {
+  color: #005ef4 !important;
+}
+
+.dropdown-content {
+  margin-top: 4px;
 }
 
 .heatmap {

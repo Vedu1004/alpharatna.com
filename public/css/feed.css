@@ -2,37 +2,46 @@
 .stock-list-container {
   display: flex;
   font-family: 'Comic Sans MS', cursive;
-  color: #333;
+  color: #333333;
   background-color: #ffffff;
-  margin-top: 7vh;
+  margin-top: 10vh;
 }
-
-.sidebar {
-  margin-top: 15vh;
-  width: 20vw;
-  padding: 20px;
-  background-color: #fff;
-  border-right: 1px solid #e0e0e0;
-}
-
-.sidebar h2 {
+.drawdown-list-container {
+  display: flex;
   font-family: 'Comic Sans MS', cursive;
-  margin-top: 0;
-  font-size: 18px;
-  font-weight: bold;
+  color: #333333;
+  background-color: #ffffff;
+  margin-top: 10vh;
 }
-
-.sidebar ul {
-  font-family: 'Comic Sans MS', cursive;
-  list-style-type: none;
-  font-size: 18px;
-  padding: 0;
-}
-
-.sidebar li {
-  margin-bottom: 10px;
+.ham {
+  background: none;
+  border: none;
   cursor: pointer;
-  font-size: 14px;
+  padding: 8px;
+  margin: 10px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ham:hover {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+.ham img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Optional: Add this if you want the button to stick to the top */
+.ham {
+  position: sticky;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
 }
 
 .stock-table {
@@ -53,7 +62,7 @@
 }
 
 .styled-table {
-  width: 90%;
+  width: 75%;
   border-collapse: separate;
   border-spacing: 0;
   background-color: #fff;
@@ -142,14 +151,12 @@
 
   .table-container {
     width: 100%;
+    display: flex;
     overflow-x: auto;
+    flex-direction: column;
     -webkit-overflow-scrolling: touch;
   }
 
-  .styled-table {
-    width: max-content;
-    min-width: 100%;
-  }
 
   .styled-table th:first-child,
   .styled-table td:first-child {
@@ -183,4 +190,79 @@
   .stock-count {
     margin-top: 10px;
   }
+}
+
+
+/* Add these styles to your feed.css file */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.page-btn {
+  padding: 8px 16px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: #f0f0f0;
+  border-color: #ccc;
+}
+
+.page-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.page-btn:disabled,
+.page-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-btn.ellipsis {
+  cursor: default;
+}
+
+.page-btn.ellipsis:hover {
+  background: white;
+  border-color: #ddd;
+}
+/* Add these styles to your feed.css file */
+
+.percentage-filters {
+  width: 75%;
+  display: flex;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.percent-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.percent-btn:hover {
+  background: #f0f0f0;
+  border-color: #ccc;
+}
+
+.percent-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
 }

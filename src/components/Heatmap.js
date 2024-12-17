@@ -2,7 +2,9 @@
 import m from "mithril";
 import Highcharts from "highcharts";
 import HighchartsTreemap from "highcharts/modules/treemap";
+import Sidebar from "./sidebar";
 import "../../public/css/Heatmap.css";
+import store from "../store/store";
 
 HighchartsTreemap(Highcharts);
 
@@ -10,7 +12,6 @@ const Heatmap = {
   oninit: function (vnode) {
     this.jsonArray = [];
     this.currentHeatmapType = "marketCap";
-    this.categories = ["marketCap", "turnover", "range", "rangeTodayVsAvg"];
     this.chart = null;
   },
 
@@ -80,12 +81,11 @@ const Heatmap = {
       );
 
       let value, colorValue;
-
       switch (type) {
         case "turnover":
           value = parseFloat(item.v) * parseFloat(item.lp);
           break;
-        case "marketCap":
+        case "marketcap":
           value = parseFloat(item.os) * parseFloat(item.lp);
           break;
         case "range":
@@ -93,7 +93,7 @@ const Heatmap = {
             ((parseFloat(item.h) - parseFloat(item.l)) / parseFloat(item.l)) *
             100;
           break;
-        case "rangeTodayVsAvg":
+        case "rangetodayvsavg":
           const todayRange =
             ((parseFloat(item.h) - parseFloat(item.l)) / parseFloat(item.l)) *
             100;
@@ -222,38 +222,43 @@ const Heatmap = {
       });
     }
   },
-
+  collaps: function () {
+    store.toggleSidebar(); // Use store method instead of local state
+  },
   view: function (vnode) {
-    return m("div.heatmap-container", { display: "flex", marginTop: "7vh" }, [
-      m("div.sidebars", [
-        m("h2", "MAP FILTER"),
-        m("ul", [
-          m("li", "S&P 500"),
-          m("li", "Standard 180"),
-          m("li", "Nifty 50"),
-          m("li", "Exchange Traded Funds"),
-        ]),
-        m(
-          "select",
-          {
-            onchange: (e) => this.changeHeatmapType(e.target.value),
-          },
-          this.categories.map((category) =>
-            m(
-              "option",
-              { value: category },
-              category.charAt(0).toUpperCase() + category.slice(1)
-            )
-          )
-        ),
-      ]),
-      m("div.heatmap", { style: "flex-grow: 1;" }, [
-        m("div", { id: "container", style: "height: 600px;" }),
-      ]),
+    const isSidebar = store.getSidebarState();
+    return m("div.dashboard-container", { style: "display: flex;" }, [
+      isSidebar &&
+        m(Sidebar, {
+          currentHeatmapType: this.currentHeatmapType,
+          onHeatmapTypeChange: (type) => this.changeHeatmapType(type),
+        }),
+      m(
+        "div.main-content",
+        {
+          style: isSidebar
+            ? "flex-grow: 1; margin-left: 22vw;"
+            : "flex-grow: 1; margin-left: 2vw;",
+        },
+        [
+          m(
+            "button.ham",
+            {
+              onclick: () => this.collaps(),
+            },
+            m("img.dashboard-logo", {
+              src: "/images/menu.png",
+              alt: "Ratna Logo",
+            })
+          ),
+          m("div", { id: "container", style: "height: 600px;" }),
+        ]
+      ),
     ]);
   },
 
   changeHeatmapType: function (type) {
+    console.log(type);
     this.currentHeatmapType = type;
     let formattedData = this.formatDataForHeatmap(
       this.jsonArray[0].scrip_datas,
